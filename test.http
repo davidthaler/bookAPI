@@ -1,0 +1,65 @@
+// This file demonstrates the use of the VS Code 
+// ReST client extension on the course project API 
+// from Jonathan Mills Pluralsight course
+// "ReSTful Web Services with Node and Express"
+// Multiple requests must be separated by ###
+@base_url = http://localhost:4000/api/books
+
+// Get all books
+GET {{base_url}} HTTP/1.1
+
+### 
+
+// Get by ID
+GET {{base_url}}/5f37806aa838312fce619132
+
+###
+
+// Get by field (works for author, genre, title)
+GET {{base_url}}?author=Zadie+Smith
+
+### 
+
+// Modify data by PUT
+// NB: This record has already been added.
+
+POST {{base_url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "White Teeth",
+  "genre": "Fiction",
+  "author": "Zadie Smith"
+}
+
+###
+
+PUT {{base_url}}/5f37806aa838312fce619132
+Content-Type: application/json
+
+{
+  "read": true,
+  "_id": "5f37806aa838312fce619132",
+  "title": "Swing Time",
+  "genre": "Fiction",
+  "author": "Zadie Smith",
+  "__v": 0
+}
+
+### Update one field with PATCH
+
+PATCH {{base_url}}/5f38c56c2114220443d2a8f0
+Content-Type: application/json
+
+{"read": true}
+
+### Should not be able to update ID
+
+PATCH {{base_url}}/5f38c56c2114220443d2a8f0
+Content-Type: application/json
+
+{"_id":"0"}
+
+### DELETE
+
+DELETE {{base_url}}/5f38c56c2114220443d2a8f0

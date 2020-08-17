@@ -4,7 +4,7 @@
   "description": "Course code for the Pluralsight course RESTful Web Services with Node and Express",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/**/*Test.js",
     "start": "nodemon app.js",
     "db": "mongod --config /usr/local/etc/mongod.conf"
   },
@@ -31,5 +31,11 @@
       "NODE_ENV": "development",
       "PORT": 4000
     }
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1",
+    "should": "^13.2.3",
+    "sinon": "^9.0.3",
+    "supertest": "^4.0.2"
   }
 }

@@ -8,20 +8,10 @@
 // Get all books
 GET {{base_url}} HTTP/1.1
 
-### 
+### Get by ID
+GET {{base_url}}/5f3a185944b07151eb6b6991
 
-// Get by ID
-GET {{base_url}}/5f37806aa838312fce619132
-
-###
-
-// Get by field (works for author, genre, title)
-GET {{base_url}}?author=Zadie+Smith
-
-### 
-
-// Modify data by PUT
-// NB: This record has already been added.
+### Create new book
 
 POST {{base_url}} HTTP/1.1
 Content-Type: application/json
@@ -32,15 +22,33 @@ Content-Type: application/json
   "author": "Zadie Smith"
 }
 
-###
+### Put new ID here
+@white_teeth_id = 5f3a18af658ef40ccc64b8ba
+GET {{base_url}}/{{white_teeth_id}}
 
-PUT {{base_url}}/5f37806aa838312fce619132
+### Add another book
+
+POST {{base_url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "NW",
+  "genre": "Fiction",
+  "author": "Zadie Smith"
+}
+
+### Get by field (works for author, genre, title)
+GET {{base_url}}?author=Zadie+Smith
+
+### Update record with PUT
+
+PUT {{base_url}}/{{white_teeth_id}}
 Content-Type: application/json
 
 {
   "read": true,
-  "_id": "5f37806aa838312fce619132",
-  "title": "Swing Time",
+  "_id": "{{white_teeth_id}}",
+  "title": "White Teeth",
   "genre": "Fiction",
   "author": "Zadie Smith",
   "__v": 0
@@ -48,18 +56,27 @@ Content-Type: application/json
 
 ### Update one field with PATCH
 
-PATCH {{base_url}}/5f38c56c2114220443d2a8f0
+PATCH {{base_url}}/{{white_teeth_id}}
 Content-Type: application/json
 
-{"read": true}
+{"read": false}
 
 ### Should not be able to update ID
 
-PATCH {{base_url}}/5f38c56c2114220443d2a8f0
+PATCH {{base_url}}/{{white_teeth_id}}
 Content-Type: application/json
 
 {"_id":"0"}
 
-### DELETE
+### Remove by ID with DELETE
 
 DELETE {{base_url}}/5f38c56c2114220443d2a8f0
+
+### Defective POST, no title.
+POST {{base_url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "genre": "Fiction",
+  "author": "Zadie Smith"
+}
